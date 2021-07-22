@@ -32,7 +32,7 @@ const mdTokens = marked.lexer(mdRaw);
 const mdParsed = marked.parser(mdTokens);
 const htmlContent = mustache.render(await fs.promises.readFile(path.join(__dirname, 'assets', 'template.html'), { encoding: 'utf-8', flag: 'r' }), {
     enableKatex: args['enable-katex'],
-    customFont: args['custom-font'].map(e => /\.(tt[fc]|otf|svg|eot|woff2?)$/i.test(e) ? `url("file:///${e.replace(/\\/g, '/')}")` : `local("${e}")`).join(','),
+    customFont: args['custom-font'].map(e => /\.(tt[fc]|otf|svg|eot|woff2?)$/i.test(e) ? `url("file:///${path.resolve(e).replace(/\\/g, '/')}")` : `local("${e}")`).join(','),
     customStyle: args['custom-style'] ? await fs.promises.readFile(args['custom-style'], { encoding: 'utf-8', flag: 'r' }) : '',
     markdownTheme: await fs.promises.readFile(path.join(__dirname, 'assets', 'markdown', `${args['markdown-theme']}.css`), { encoding: 'utf-8', flag: 'r' }),
     prismTheme: await fs.promises.readFile(path.join(__dirname, 'assets', 'prism', `${args['highlight-theme']}.css`), { encoding: 'utf-8', flag: 'r' }),
