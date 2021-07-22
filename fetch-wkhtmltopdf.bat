@@ -1,0 +1,6 @@
+curl -L "https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox-0.12.6-1.msvc2015-win64.exe" --output "%temp%\wkhtmltox.exe"
+7z e -y -o"%temp%" "%temp%\wkhtmltox.exe" "bin\wkhtmltopdf.exe"
+del "%temp%\wkhtmltox.exe"
+del "bin\wkhtmltopdf.exe"
+upx --ultra-brute -o "bin\wkhtmltopdf.exe" "%temp%\wkhtmltopdf.exe"
+del "%temp%\wkhtmltopdf.exe"

@@ -1,0 +1,31 @@
+{
+  "name": "mdconv",
+  "version": "0.1.0",
+  "description": "A simple CLI converts markdown files to HTML or PDF documents.",
+  "main": "index.js",
+  "bin": "index.js",
+  "author": "TransparentLC",
+  "license": "AGPL-3.0-or-later",
+  "scripts": {
+    "build-windows": "pkg . -t latest-win -C Brotli -o dist/mdconv.exe"
+  },
+  "pkg": {
+    "assets": [
+      "assets/**/*",
+      "bin/**/*",
+      "node_modules/prismjs/components/**/*"
+    ]
+  },
+  "dependencies": {
+    "katex": "^0.13.13",
+    "lookpath": "^1.2.1",
+    "marked": "^2.1.3",
+    "mustache": "^4.2.0",
+    "prismjs": "^1.24.1",
+    "wkhtmltopdf": "^0.4.0",
+    "yargs": "^17.0.1"
+  },
+  "devDependencies": {
+    "pkg": "^5.3.1"
+  }
+}
