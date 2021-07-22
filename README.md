@@ -8,7 +8,7 @@
 
 虽然有 [Pandoc](https://pandoc.org/) 这种工具，或者可以直接在浏览器和 [Puppeteer](https://github.com/puppeteer/puppeteer) 中另存为 PDF，不过前者对 CSS 样式的支持有限，后者导出的 PDF 缺少了大纲，所以为了兼顾这两个还是自己造了一个轮子 (｡•̀ᴗ-)✧
 
-提供开箱即用的 Windows 打包版，可以在[这里](https://nightly.link/TransparentLC/mdconv/workflows/build/master/mdconv)下载。
+提供开箱即用的 Windows 打包版，可以在[这里](https://nightly.link/TransparentLC/mdconv/workflows/ci/master)下载。
 
 ## 使用方式
 
