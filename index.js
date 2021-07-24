@@ -30,9 +30,11 @@ marked.use({ renderer: markedCustomRenderer });
 const mdRaw = await fs.promises.readFile(args.input, { encoding: 'utf-8', flag: 'r' });
 const mdTokens = marked.lexer(mdRaw);
 const mdParsed = marked.parser(mdTokens);
+const fontToCssSrc = (/** @type {String} */ font) => /\.(tt[fc]|otf|svg|eot|woff2?)$/i.test(font) ? `url("file:///${path.resolve(font).replace(/\\/g, '/')}")` : `local("${font}")`;
 const htmlContent = mustache.render(await fs.promises.readFile(path.join(__dirname, 'assets', 'template.html'), { encoding: 'utf-8', flag: 'r' }), {
-    enableKatex: args['enable-katex'],
-    customFont: args['custom-font'].map(e => /\.(tt[fc]|otf|svg|eot|woff2?)$/i.test(e) ? `url("file:///${path.resolve(e).replace(/\\/g, '/')}")` : `local("${e}")`).join(','),
+    katexUsed: markedCustomRenderer.katexUsed,
+    customContentFont: fontToCssSrc(args['custom-content-font']),
+    customMonospaceFont: fontToCssSrc(args['custom-monospace-font']),
     customStyle: args['custom-style'] ? await fs.promises.readFile(args['custom-style'], { encoding: 'utf-8', flag: 'r' }) : '',
     markdownTheme: await fs.promises.readFile(path.join(__dirname, 'assets', 'markdown', `${args['markdown-theme']}.css`), { encoding: 'utf-8', flag: 'r' }),
     prismTheme: await fs.promises.readFile(path.join(__dirname, 'assets', 'prism', `${args['highlight-theme']}.css`), { encoding: 'utf-8', flag: 'r' }),
@@ -45,11 +47,13 @@ switch (path.parse(args.output).ext.toLowerCase()) {
         await fs.promises.writeFile(args.output, htmlContent);
         break;
     case '.pdf':
-        wkhtmltopdf(htmlContent, {
+        const wkhtmltopdfConfig = {
             pageSize: args['pdf-size'],
             output: args.output,
             enableLocalFileAccess: true,
-        });
+        };
+        if (args.proxy) wkhtmltopdfConfig.proxy = args.proxy;
+        wkhtmltopdf(htmlContent, wkhtmltopdfConfig);
         break;
 }
 

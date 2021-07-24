@@ -1,7 +1,7 @@
 .markdown-body {
     word-wrap: break-word;
     line-height: 1.5;
-    font-family: mdconv-custom, sans-serif
+    font-family: mdconv-custom-content, sans-serif
 }
 
 .markdown-body :first-child {
