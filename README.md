@@ -57,13 +57,13 @@ node index.js --help
 
 ## 关于字体设置
 
-输出 PDF 时，如果不设置字体，调用 wkhtmltopdf 将解析 Markdown 后的 HTML 转换为 PDF 时选用的默认字体是不可预料的（一般是宋体等系统默认字体），因此需要手动设置字体。
+输出 PDF 时，如果不设置字体，调用 wkhtmltopdf 将解析 Markdown 后的 HTML 转换为 PDF 时选用的字体是不可预料的（一般是宋体等系统默认字体），代码部分的默认等宽字体样式还会受到 Katex 数学公式渲染或主题的影响变成非等宽字体，因此需要手动设置字体。可以通过 `--cf` 和 `--mf` 参数输入已安装的字体的以下参数之一来设置：
 
-可以直接输入字体名称，但是 wkhtmltopdf 对字体名称的解析存在问题，比如输入“微软雅黑”、“等线”和“苹方 中等”没有问题，但是输入“Microsoft YaHei”和“思源黑体 常规”就没有效果，因此请用字体的多个名称试试看，不过更建议的是**直接指定字体文件的路径**。
+* 文件路径：`C:\WINDOWS\fonts\SourceHanSansCN-Regular.otf`
+* Postscript 名称：`SourceHanSansCN-Regular`
+* 显示的名称和字重：`Source Han Sans CN Regular`、`思源黑体 CN Regular`
 
-生成的 PDF 中，代码部分的默认等宽字体样式会受到 Katex 数学公式渲染或主题的影响变成非等宽字体，因此等宽字体也需要手动设置。
-
-以上都是 wkhtmltopdf 关于自定义字体的坑 ┐(´-｀)┌
+初次转换或已安装的字体有变更时，需要读取已安装的字体，生成并缓存字体名称到字体文件路径的映射。
 
 输出 HTML 时没有自定义字体的必要，使用浏览器打开时基本不会有以上的问题。
 
