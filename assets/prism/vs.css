@@ -6,7 +6,7 @@
 code[class*="language-"],
 pre[class*="language-"] {
 	color: #393A34;
-	font-family: "Cascadia Code", "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+	font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
 	direction: ltr;
 	text-align: left;
 	white-space: pre;
@@ -62,6 +62,7 @@ pre[class*="language-"] {
 .token.doctype,
 .token.cdata {
 	color: #008000;
+	font-style: italic;
 }
 
 .token.namespace {
@@ -149,18 +150,18 @@ code[class*="language-css"] {
 /* overrides color-values for the Line Numbers plugin
  * http://prismjs.com/plugins/line-numbers/
  */
-.line-numbers .line-numbers-rows {
+.line-numbers.line-numbers .line-numbers-rows {
 	border-right-color: #a5a5a5;
 }
 
-.line-numbers-rows > span:before {
+.line-numbers .line-numbers-rows > span:before {
 	color: #2B91AF;
 }
 
 /* overrides color-values for the Line Highlight plugin
 * http://prismjs.com/plugins/line-highlight/
 */
-.line-highlight {
+.line-highlight.line-highlight {
 	background: rgba(193, 222, 241, 0.2);
 	background: -webkit-linear-gradient(left, rgba(193, 222, 241, 0.2) 70%, rgba(221, 222, 241, 0));
 	background: linear-gradient(to right, rgba(193, 222, 241, 0.2) 70%, rgba(221, 222, 241, 0));

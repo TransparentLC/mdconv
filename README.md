@@ -39,8 +39,9 @@ node index.js --help
 | `--custom-content-font` | `--cf` | 自定义正文部分字体，可以设置字体文件路径或字体名称，也可以留空。<br>输出 PDF 时基本上是必须设置的，注意事项后述。 |
 | `--custom-monospace-font` | `--mf` | 自定义代码部分字体，同上。 |
 | `--custom-style` |  | 自定义的 CSS 样式文件路径。 |
-| `--pdf-size` |  | 输出 PDF 大小，默认为 A4 |
+| `--pdf-size` |  | 输出 PDF 大小，默认为 A4。 |
 | `--proxy` |  | 代理服务器地址，输出 PDF 中加载图片资源时会用到。 |
+| `--show-fonts` |  | 查看可以选择的字体名称和路径。 |
 | `--help` |  | 显示参数说明。 |
 
 目前可以选择的 Markdown 渲染主题（点击查看示例）：
@@ -49,15 +50,9 @@ node index.js --help
 * [vue](https://s3plus.meituan.net/v1/mss_550586ef375b493da4aa79bebdfce4fa/csc-apply-file-web/prod/2021-07-24/fbbcf787-75d1-4595-9307-c28a8d44b838null) 修改自 docsify 的 [Vue 主题](https://docsify.js.org/#/themes)
 * [cayman](https://s3plus.meituan.net/v1/mss_550586ef375b493da4aa79bebdfce4fa/csc-apply-file-web/prod/2021-07-24/114169e6-63af-462e-821d-17c61abb3e0anull) 修改自 GitHub Pages 的 [cayman 主题](https://github.com/pages-themes/cayman)
 
-代码高亮主题来自 [Prism 官方主题](https://github.com/PrismJS/prism-themes)。部分深色风格主题可能需要额外修改，以下是确定可用的深色风格主题：
+默认的代码高亮主题来自 [LukeAskew/prism-github](https://github.com/LukeAskew/prism-github)，也可以选择其他的 [Prism 官方主题](https://github.com/PrismJS/prism-themes)。
 
-* nord
-* vs
-* vsc-dark-plus
-
-## 关于字体设置
-
-输出 PDF 时，如果不设置字体，调用 wkhtmltopdf 将解析 Markdown 后的 HTML 转换为 PDF 时选用的字体是不可预料的（一般是宋体等系统默认字体），代码部分的默认等宽字体样式还会受到 Katex 数学公式渲染或主题的影响变成非等宽字体，因此需要手动设置字体。可以通过 `--cf` 和 `--mf` 参数输入已安装的字体的以下参数之一来设置：
+输出 PDF 时，如果不设置字体，调用 wkhtmltopdf 将解析 Markdown 后的 HTML 转换为 PDF 时选用的字体是不可预料的（一般是宋体等系统默认字体），代码部分的默认等宽字体样式还会受到 Katex 数学公式渲染或主题的影响变成非等宽字体，因此需要手动设置字体。可以输入已安装的字体的以下参数之一来设置：
 
 * 文件路径：`C:\WINDOWS\fonts\SourceHanSansCN-Regular.otf`
 * Postscript 名称：`SourceHanSansCN-Regular`

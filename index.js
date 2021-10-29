@@ -26,6 +26,11 @@ if (process.pkg && process.platform === 'win32' && !(await lookpath('wkhtmltopdf
     wkhtmltopdf.command = wkhtmltopdfPath;
 }
 
+if (args['show-fonts']) {
+    console.log(await fontCache);
+    process.exit(0);
+}
+
 marked.use({ renderer: markedCustomRenderer });
 
 const mdRaw = await fs.promises.readFile(args.input, { encoding: 'utf-8', flag: 'r' });
