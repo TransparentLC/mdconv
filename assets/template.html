@@ -38,6 +38,30 @@
                 padding: 15px;
             }
         }
+
+        kbd {
+            font-family: mdconv-custom-monospace, Consolas, "Lucida Console", monospace;
+            display: inline-block;
+            border-radius: 3px;
+            padding: 0px 5px;
+            box-shadow: 1px 1px 1px #777;
+            font-size: small;
+            vertical-align: text-bottom;
+            background: #eee;
+            color: #555;
+            cursor: pointer;
+            letter-spacing: 1px;
+            user-select: none;
+        }
+
+        kbd:hover, kbd:hover * {
+            color: #000;
+        }
+        kbd:active, kbd:active * {
+            color: #000;
+            box-shadow: 1px 1px 0px #ddd inset;
+        }
+
         p .katex-display {
             display: inline-block;
         }

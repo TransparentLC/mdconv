@@ -1,3 +1,4 @@
+const fontkit = require('fontkit');
 const fs = require('fs');
 const { lookpath } = require('lookpath');
 const marked = require('marked');
@@ -27,26 +28,60 @@ if (process.pkg && process.platform === 'win32' && !(await lookpath('wkhtmltopdf
 }
 
 if (args['show-fonts']) {
-    console.log(await fontCache);
+    const fontCacheMapping = {};
+    for (const [fontName, fontPath] of Object.entries(fontCache)) {
+        if (fontCacheMapping[fontPath]) {
+            fontCacheMapping[fontPath].push(fontName);
+        } else {
+            fontCacheMapping[fontPath] = [fontName];
+        }
+    }
+    for (const [fontPath, fontNames] of Object.entries(fontCacheMapping)) {
+        console.log(`Font names of "${fontPath}":\n${fontNames.map(e => `    ${e}`).join('\n')}`);
+    }
     process.exit(0);
 }
 
 marked.use({ renderer: markedCustomRenderer });
 
-const mdRaw = await fs.promises.readFile(args.input, { encoding: 'utf-8', flag: 'r' });
-const mdTokens = marked.lexer(mdRaw);
-const mdParsed = marked.parser(mdTokens);
-const fontToCssSrc = (/** @type {String} */ font) => /\.(tt[fc]|otf|svg|eot|woff2?)$/i.test(font) ?
-    `url("file:///${path.resolve(font).replace(/\\/g, '/')}")` :
-    `local("${font}")`;
 for (const k of ['custom-content-font', 'custom-monospace-font']) {
-    if ((await fontCache)[args[k]]) {
-        console.log(`Found font file for "${args[k]}": ${(await fontCache)[args[k]]}`);
-        args[k] = (await fontCache)[args[k]];
-    } else {
+    if (fontCache[args[k]]) {
+        console.log(`Found font file for "${args[k]}": ${fontCache[args[k]]}`);
+        args[k] = fontCache[args[k]];
+    } else if (typeof args[k] === 'string' && !/\.(tt[fc]|otf|svg|eot|woff2?)$/i.test(args[k])) {
         console.log(`Can't find font file for "${args[k]}".`);
     }
 }
+
+let mdRaw = await fs.promises.readFile(args.input, { encoding: 'utf-8', flag: 'r' });
+if (args['enable-macro']) {
+    const d = new Date;
+    const ps20 = s => `${s}`.padStart(2, 0);
+    const psname = p => {
+        try {
+            const f = fontkit.openSync(p);
+            return (Array.isArray(f.fonts) ? f.fonts[0] : f).postscriptName;
+        } catch (error) {
+            return null;
+        }
+    };
+
+    mdRaw = mdRaw
+        .replace(/%MDCONV_VERSION%/g, require('./package.json').version)
+        .replace(/%MARKDOWN_THEME%/g, args['markdown-theme'])
+        .replace(/%HIGHLIGHT_THEME%/g, args['highlight-theme'])
+        .replace(/%CONTENT_FONT%/g, psname(args['custom-content-font']))
+        .replace(/%MONOSPACE_FONT%/g, psname(args['custom-monospace-font']))
+        .replace(/%DATETIME%/g, '%DATE% %TIME%')
+        .replace(/%DATE%/g, `${d.getFullYear()}-${ps20(d.getMonth() + 1)}-${ps20(d.getDate())}`)
+        .replace(/%TIME%/g, `${ps20(d.getHours())}:${ps20(d.getMinutes())}:${ps20(d.getSeconds())}`);
+}
+const mdTokens = marked.lexer(mdRaw);
+const mdParsed = marked.parser(mdTokens);
+const fontToCssSrc = (/** @type {String} */ font) => /\.(tt[fc]|otf|svg|eot|woff2?)$/i.test(font) ?
+`url("file:///${path.resolve(font).replace(/\\/g, '/')}")` :
+`local("${font}")`;
+
 const htmlContent = mustache.render(
     await fs.promises.readFile(
         path.join(__dirname, 'assets', 'template.html'),
@@ -54,8 +89,8 @@ const htmlContent = mustache.render(
     ),
     {
         katexUsed: markedCustomRenderer.katexUsed,
-        customContentFont: fontToCssSrc(args['custom-content-font']),
-        customMonospaceFont: fontToCssSrc(args['custom-monospace-font']),
+        customContentFont: args['custom-content-font'] ? fontToCssSrc(args['custom-content-font']) : null,
+        customMonospaceFont: args['custom-monospace-font'] ? fontToCssSrc(args['custom-monospace-font']) : null,
         customStyle: args['custom-style'] ?
             await fs.promises.readFile(args['custom-style'], { encoding: 'utf-8', flag: 'r' }) :
             '',

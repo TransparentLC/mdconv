@@ -51,7 +51,7 @@ def fib(n):
 
 ```
 这个代码块没有指定语言，也就是纯文本。
-当然并不会被高亮……
+当然并不会被高亮……只是一起修改了背景色而已。
 ```
 
 这里还有一个行内代码块：`npm install`，也不会被高亮。
@@ -86,3 +86,27 @@ $$
 | --- | --- |
 | `git status` | List all *new or modified* files |
 | `git diff` | Show file differences that **haven't been** staged |
+
+## 嵌套列表
+
+* 第一层甲
+* 第一层乙
+    * 第二层甲
+    * 第二层乙
+        1. 第三层甲
+        2. 第三层乙
+    * 第二层丙
+        * 第三层丙
+        * 第三层丁
+
+## 按键指示
+
+其实就是用 `<kbd>` 包裹文字。例如：<kbd>Ctrl+C</kbd> 和 <kbd>Ctrl+V</kbd> 分别对应复制和粘贴功能。
+
+---
+
+<div style="text-align:right">
+
+<small>*本文档使用 [mdconv %MDCONV_VERSION%](https://github.com/TransparentLC/mdconv) 于 %DATETIME% 生成<br>主题：%MARKDOWN_THEME% %HIGHLIGHT_THEME%<br>字体：%CONTENT_FONT% %MONOSPACE_FONT%*</small>
+
+</div>

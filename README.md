@@ -41,16 +41,29 @@ node index.js --help
 | `--custom-style` |  | 自定义的 CSS 样式文件路径。 |
 | `--pdf-size` |  | 输出 PDF 大小，默认为 A4。 |
 | `--proxy` |  | 代理服务器地址，输出 PDF 中加载图片资源时会用到。 |
+| `--enable-macro` |  | 像 C 语言中的宏一样，对 Markdown 文件中的特定标记进行替换 |
 | `--show-fonts` |  | 查看可以选择的字体名称和路径。 |
 | `--help` |  | 显示参数说明。 |
 
 目前可以选择的 Markdown 渲染主题（点击查看示例）：
 
-* [github](https://s3plus.meituan.net/v1/mss_550586ef375b493da4aa79bebdfce4fa/csc-apply-file-web/prod/2021-07-24/2744b94a-0bf8-40c3-995e-44f6dc10f2b0null) 修改自 [github-markdown-css](https://github.com/sindresorhus/github-markdown-css)
-* [vue](https://s3plus.meituan.net/v1/mss_550586ef375b493da4aa79bebdfce4fa/csc-apply-file-web/prod/2021-07-24/fbbcf787-75d1-4595-9307-c28a8d44b838null) 修改自 docsify 的 [Vue 主题](https://docsify.js.org/#/themes)
-* [cayman](https://s3plus.meituan.net/v1/mss_550586ef375b493da4aa79bebdfce4fa/csc-apply-file-web/prod/2021-07-24/114169e6-63af-462e-821d-17c61abb3e0anull) 修改自 GitHub Pages 的 [cayman 主题](https://github.com/pages-themes/cayman)
+* [github](https://s3plus.meituan.net/v1/mss_550586ef375b493da4aa79bebdfce4fa/csc-apply-file-web/prod/2021-10-30/880f835c-93c3-4f39-b683-43199395975anull) 修改自 [github-markdown-css](https://github.com/sindresorhus/github-markdown-css)
+* [vue](https://s3plus.meituan.net/v1/mss_550586ef375b493da4aa79bebdfce4fa/csc-apply-file-web/prod/2021-10-30/7aa01c49-805d-4810-aedd-d895d74895c2null) 修改自 docsify 的 [Vue 主题](https://docsify.js.org/#/themes)
+* [cayman](https://s3plus.meituan.net/v1/mss_550586ef375b493da4aa79bebdfce4fa/csc-apply-file-web/prod/2021-10-30/e458b3e1-d4ad-4690-84e1-64e8c862b2d1null) 修改自 GitHub Pages 的 [Cayman 主题](https://github.com/pages-themes/cayman)
+* [lark](https://s3plus.meituan.net/v1/mss_550586ef375b493da4aa79bebdfce4fa/csc-apply-file-web/prod/2021-10-30/dd2d66e2-33d4-49d6-9ec2-7ed29e781366null) 修改自 Typora 的 [Lark 主题](https://theme.typora.io/theme/Lark/)
 
 默认的代码高亮主题来自 [LukeAskew/prism-github](https://github.com/LukeAskew/prism-github)，也可以选择其他的 [Prism 官方主题](https://github.com/PrismJS/prism-themes)。
+
+使用 `--enable-macro` 参数后可以替换的标记：
+
+* `%MDCONV_VERSION%` 版本号
+* `%MARKDOWN_THEME%` 使用的 Markdown 渲染主题
+* `%HIGHLIGHT_THEME%` 使用的代码高亮主题
+* `%CONTENT_FONT%` 使用的正文部分字体的 Postscript 名称，没有设置的话是 `null`
+* `%MONOSPACE_FONT%` 使用的代码部分字体的 Postscript 名称，没有设置的话是 `null`
+* `%DATE%` 生成文档的日期，格式为 `YYYY-MM-DD`
+* `%TIME%` 生成文档的时间，格式为 `HH:MM:SS`
+* `%DATETIME%` 等效于 `%DATE% %TIME%`，也就是 `YYYY-MM-DD HH:MM:SS` 格式的完整时间
 
 输出 PDF 时，如果不设置字体，调用 wkhtmltopdf 将解析 Markdown 后的 HTML 转换为 PDF 时选用的字体是不可预料的（一般是宋体等系统默认字体），代码部分的默认等宽字体样式还会受到 Katex 数学公式渲染或主题的影响变成非等宽字体，因此需要手动设置字体。可以输入已安装的字体的以下参数之一来设置：
 

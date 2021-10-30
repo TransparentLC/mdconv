@@ -63,7 +63,7 @@
 .markdown-body code {
     padding: 2px 4px;
     font-family: "Cascadia Code", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: #567482;
     background-color: #f3f6fa;
     border-radius: 0.3rem
@@ -84,12 +84,12 @@
 .markdown-body pre > code {
     padding: 0;
     margin: 0;
-    font-size: 0.9rem;
-    color: #567482;
+    font-size: 1rem;
     word-break: normal;
     white-space: pre;
     background: transparent;
-    border: 0
+    border: 0;
+    color: inherit;
 }
 
 .markdown-body .highlight {

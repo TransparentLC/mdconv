@@ -198,6 +198,7 @@
     padding: 0 1.4rem;
     position: relative;
     word-wrap: normal;
+    border-radius: 4px;
 }
 
 .markdown-body pre>code {
@@ -205,13 +206,13 @@
     -webkit-font-smoothing: initial;
     background-color: transparent;
     border-radius: 2px;
-    color: #525252;
+    color: inherit;
     display: block;
     font-family: "Cascadia Code", 'Roboto Mono', Monaco, courier, monospace;
     max-width: inherit;
     overflow: inherit;
-    padding: 1em 0;
     white-space: inherit;
+    padding: unset;
 }
 
 .markdown-body code::after,
