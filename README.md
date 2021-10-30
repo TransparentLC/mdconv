@@ -41,7 +41,7 @@ node index.js --help
 | `--custom-style` |  | 自定义的 CSS 样式文件路径。 |
 | `--pdf-size` |  | 输出 PDF 大小，默认为 A4。 |
 | `--proxy` |  | 代理服务器地址，输出 PDF 中加载图片资源时会用到。 |
-| `--enable-macro` |  | 像 C 语言中的宏一样，对 Markdown 文件中的特定标记进行替换 |
+| `--enable-macro` |  | 像 C 语言中的宏一样，对 Markdown 文件中的特定标记进行替换。 |
 | `--show-fonts` |  | 查看可以选择的字体名称和路径。 |
 | `--help` |  | 显示参数说明。 |
 

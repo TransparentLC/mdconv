@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "fontkit": "^1.8.1",
-    "katex": "^0.13.20",
+    "katex": "^0.13.23",
     "lookpath": "^1.2.2",
     "marked": "^3.0.8",
     "mustache": "^4.2.0",
