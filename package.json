@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "fontkit": "^1.8.1",
-    "katex": "^0.13.23",
+    "katex": "^0.15.0",
     "lookpath": "^1.2.2",
     "marked": "^3.0.8",
     "mustache": "^4.2.0",
@@ -27,6 +27,6 @@
     "yargs": "^17.2.1"
   },
   "devDependencies": {
-    "pkg": "^5.4.0"
+    "pkg": "^5.4.1"
   }
 }
