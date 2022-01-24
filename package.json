@@ -18,15 +18,15 @@
   },
   "dependencies": {
     "fontkit": "^1.8.1",
-    "katex": "^0.15.0",
+    "katex": "^0.15.2",
     "lookpath": "^1.2.2",
-    "marked": "^3.0.8",
+    "marked": "^4.0.10",
     "mustache": "^4.2.0",
-    "prismjs": "^1.25.0",
+    "prismjs": "^1.26.0",
     "wkhtmltopdf": "^0.4.0",
-    "yargs": "^17.2.1"
+    "yargs": "^17.3.1"
   },
   "devDependencies": {
-    "pkg": "^5.4.1"
+    "pkg": "^5.5.2"
   }
 }

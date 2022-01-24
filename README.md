@@ -50,7 +50,7 @@ node index.js --help
 * [github](https://s3plus.meituan.net/v1/mss_550586ef375b493da4aa79bebdfce4fa/csc-apply-file-web/prod/2021-10-30/880f835c-93c3-4f39-b683-43199395975anull) 修改自 [github-markdown-css](https://github.com/sindresorhus/github-markdown-css)
 * [vue](https://s3plus.meituan.net/v1/mss_550586ef375b493da4aa79bebdfce4fa/csc-apply-file-web/prod/2021-10-30/7aa01c49-805d-4810-aedd-d895d74895c2null) 修改自 docsify 的 [Vue 主题](https://docsify.js.org/#/themes)
 * [cayman](https://s3plus.meituan.net/v1/mss_550586ef375b493da4aa79bebdfce4fa/csc-apply-file-web/prod/2021-10-30/e458b3e1-d4ad-4690-84e1-64e8c862b2d1null) 修改自 GitHub Pages 的 [Cayman 主题](https://github.com/pages-themes/cayman)
-* [lark](https://s3plus.meituan.net/v1/mss_550586ef375b493da4aa79bebdfce4fa/csc-apply-file-web/prod/2021-10-30/dd2d66e2-33d4-49d6-9ec2-7ed29e781366null) 修改自 Typora 的 [Lark 主题](https://theme.typora.io/theme/Lark/)
+* [lark](https://s3plus.meituan.net/v1/mss_550586ef375b493da4aa79bebdfce4fa/csc-apply-file-web/prod/2022-01-24/3a350bcf-07ae-4e56-8656-14352fed1d66null) 修改自 Typora 的 [Lark 主题](https://theme.typora.io/theme/Lark/)
 
 默认的代码高亮主题来自 [LukeAskew/prism-github](https://github.com/LukeAskew/prism-github)，也可以选择其他的 [Prism 官方主题](https://github.com/PrismJS/prism-themes)。
 
