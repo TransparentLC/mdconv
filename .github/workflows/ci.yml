@@ -10,18 +10,18 @@ jobs:
   build-windows:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Setup node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 18
           architecture: x64
           check-latest: true
       - name: Get npm cache directory
         id: npm-cache
-        run: echo "::set-output name=dir::$(npm config get cache)"
+        run: echo "dir=$(npm config get cache)" >> $GITHUB_OUTPUT
       - name: Cache npm dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             ${{ steps.npm-cache.outputs.dir }}
@@ -32,7 +32,7 @@ jobs:
       - name: Build executable for Windows
         run: npm run build-windows
       - name: Upload result
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: mdconv
           path: dist/
