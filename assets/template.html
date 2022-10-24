@@ -4,6 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
     {{ #katexUsed }}
+        {{ !
+            从katex@0.13.14开始更新了字体：https://github.com/KaTeX/KaTeX/releases/tag/v0.13.14
+            但是这个字体在wkhtmltopdf下使用会存在一些问题，所以保持使用0.13.13
+        }}
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css">
     {{ /katexUsed }}
     <style>
@@ -60,10 +64,6 @@
         kbd:active, kbd:active * {
             color: #000;
             box-shadow: 1px 1px 0px #ddd inset;
-        }
-
-        p .katex-display {
-            display: inline-block;
         }
 
         {{{ markdownTheme }}}

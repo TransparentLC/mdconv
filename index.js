@@ -78,9 +78,9 @@ if (args['enable-macro']) {
 }
 const mdTokens = marked.lexer(mdRaw);
 const mdParsed = marked.parser(mdTokens);
-const fontToCssSrc = (/** @type {String} */ font) => /\.(tt[fc]|otf|svg|eot|woff2?)$/i.test(font) ?
-`url("file:///${path.resolve(font).replace(/\\/g, '/')}")` :
-`local("${font}")`;
+const fontToCssSrc = (/** @type {String} */ font) => /\.(tt[fc]|otf|svg|eot|woff2?)$/i.test(font)
+    ? `url("file:///${path.resolve(font).replace(/\\/g, '/')}")`
+    : `local("${font}")`;
 
 const htmlContent = mustache.render(
     await fs.promises.readFile(

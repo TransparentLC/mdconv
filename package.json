@@ -1,6 +1,6 @@
 {
   "name": "mdconv",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "A simple CLI converts markdown files to HTML or PDF documents.",
   "main": "index.js",
   "bin": "index.js",
@@ -17,16 +17,16 @@
     ]
   },
   "dependencies": {
-    "fontkit": "^1.8.1",
-    "katex": "^0.15.2",
+    "fontkit": "^2.0.2",
+    "katex": "^0.16.3",
     "lookpath": "^1.2.2",
-    "marked": "^4.0.10",
+    "marked": "^4.1.1",
     "mustache": "^4.2.0",
-    "prismjs": "^1.26.0",
+    "prismjs": "^1.29.0",
     "wkhtmltopdf": "^0.4.0",
-    "yargs": "^17.3.1"
+    "yargs": "^17.6.0"
   },
   "devDependencies": {
-    "pkg": "^5.5.2"
+    "pkg": "^5.8.0"
   }
 }

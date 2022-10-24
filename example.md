@@ -58,7 +58,6 @@ def fib(n):
 
 ## 数学公式
 
-```
 $$
     \begin{pmatrix}
     1 & a_1 & a_1^2 & \cdots & a_1^n \\
@@ -67,9 +66,8 @@ $$
     1 & a_m & a_m^2 & \cdots & a_m^n \\
     \end{pmatrix}
 $$
-```
 
-这里还有一条行内公式：`$$ f(x,y) = \sqrt{x^2+y^2} $$`
+这里还有两条行内公式：$f(x,y) = \sqrt{x^2+y^2}$ 和 $\begin{pmatrix}1 & a & a^2 & \cdots & a^n \\ 1 & a & a^2 & \cdots & a^n\end{pmatrix}$
 
 ## 表格
 
