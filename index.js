@@ -111,15 +111,22 @@ let htmlContent = mustache.render(
     }
 );
 
-await Promise.all(
-    Array.from(
+await Promise.all([
+    ...Array.from(
         htmlContent.matchAll(
             new RegExp(`<!-- ${markedCustomRenderer.nonce} preload (\\S*?) -->`, 'g')
         )
     ).map(
         e => fetch(e[1]).then(r => r.text()).then(r => [e[0], r])
-    )
-).then(
+    ),
+    ...Array.from(
+        htmlContent.matchAll(
+            new RegExp(`<!-- ${markedCustomRenderer.nonce} preload-base64 (\\S*?) -->`, 'g')
+        )
+    ).map(
+        e => fetch(e[1]).then(r => r.arrayBuffer()).then(r => [e[0], Buffer.from(r).toString('base64')])
+    ),
+]).then(
     e => e.forEach(
         ([t, r]) => htmlContent = htmlContent.replaceAll(t, r)
     )
