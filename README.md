@@ -38,6 +38,7 @@ node index.js --help
 | `--highlight-theme` | `--ht` | 代码高亮主题，默认为 `github`。 |
 | `--custom-content-font` | `--cf` | 自定义正文部分字体，可以设置字体文件路径或字体名称，也可以留空。<br>输出 PDF 时基本上是必须设置的，注意事项后述。 |
 | `--custom-monospace-font` | `--mf` | 自定义代码部分字体，同上。 |
+| `--math-renderer` | `--mr` | 数学公式渲染方式。 |
 | `--custom-style` |  | 自定义的 CSS 样式文件路径。 |
 | `--pdf-size` |  | 输出 PDF 大小，默认为 A4。 |
 | `--proxy` |  | 代理服务器地址，输出 PDF 中加载图片资源时会用到。 |
