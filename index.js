@@ -72,17 +72,16 @@ if (args['enable-macro']) {
     };
 
     mdRaw = mdRaw
-        .replace(/%MDCONV_VERSION%/g, require('./package.json').version)
-        .replace(/%MARKDOWN_THEME%/g, args['markdown-theme'])
-        .replace(/%HIGHLIGHT_THEME%/g, args['highlight-theme'])
-        .replace(/%CONTENT_FONT%/g, psname(args['custom-content-font']))
-        .replace(/%MONOSPACE_FONT%/g, psname(args['custom-monospace-font']))
-        .replace(/%DATETIME%/g, '%DATE% %TIME%')
-        .replace(/%DATE%/g, `${d.getFullYear()}-${ps20(d.getMonth() + 1)}-${ps20(d.getDate())}`)
-        .replace(/%TIME%/g, `${ps20(d.getHours())}:${ps20(d.getMinutes())}:${ps20(d.getSeconds())}`);
+        .replaceAll('%MDCONV_VERSION%', require('./package.json').version)
+        .replaceAll('%MARKDOWN_THEME%', args['markdown-theme'])
+        .replaceAll('%HIGHLIGHT_THEME%', args['highlight-theme'])
+        .replaceAll('%CONTENT_FONT%', psname(args['custom-content-font']))
+        .replaceAll('%MONOSPACE_FONT%', psname(args['custom-monospace-font']))
+        .replaceAll('%DATETIME%', '%DATE% %TIME%')
+        .replaceAll('%DATE%', `${d.getFullYear()}-${ps20(d.getMonth() + 1)}-${ps20(d.getDate())}`)
+        .replaceAll('%TIME%', `${ps20(d.getHours())}:${ps20(d.getMinutes())}:${ps20(d.getSeconds())}`);
 }
-const mdTokens = marked.lexer(mdRaw);
-const mdParsed = marked.parser(mdTokens);
+const mdParsed = await marked.parse(mdRaw);
 const fontToCssSrc = (/** @type {String} */ font) => /\.(tt[fc]|otf|svg|eot|woff2?)$/i.test(font)
     ? `url("file:///${path.resolve(font).replace(/\\/g, '/')}")`
     : `local("${font}")`;
@@ -94,6 +93,7 @@ let htmlContent = mustache.render(
     ),
     {
         katexUsed: args['math-renderer'] === 'katex' && markedCustomRenderer.mathRendered,
+        mathjaxUsed: args['math-renderer'] === 'mathjax' && markedCustomRenderer.mathRendered,
         customContentFont: args['custom-content-font'] ? fontToCssSrc(args['custom-content-font']) : null,
         customMonospaceFont: args['custom-monospace-font'] ? fontToCssSrc(args['custom-monospace-font']) : null,
         customStyle: args['custom-style'] ?
@@ -111,26 +111,26 @@ let htmlContent = mustache.render(
     }
 );
 
-await Promise.all([
-    ...Array.from(
-        htmlContent.matchAll(
-            new RegExp(`<!-- ${markedCustomRenderer.nonce} preload (\\S*?) -->`, 'g')
-        )
-    ).map(
-        e => fetch(e[1]).then(r => r.text()).then(r => [e[0], r])
-    ),
-    ...Array.from(
-        htmlContent.matchAll(
-            new RegExp(`<!-- ${markedCustomRenderer.nonce} preload-base64 (\\S*?) -->`, 'g')
-        )
-    ).map(
-        e => fetch(e[1]).then(r => r.arrayBuffer()).then(r => [e[0], Buffer.from(r).toString('base64')])
-    ),
-]).then(
-    e => e.forEach(
-        ([t, r]) => htmlContent = htmlContent.replaceAll(t, r)
-    )
-);
+// await Promise.all([
+//     ...Array.from(
+//         htmlContent.matchAll(
+//             new RegExp(`<!-- ${markedCustomRenderer.nonce} preload (\\S*?) -->`, 'g')
+//         )
+//     ).map(
+//         e => fetch(e[1]).then(r => r.text()).then(r => [e[0], r])
+//     ),
+//     ...Array.from(
+//         htmlContent.matchAll(
+//             new RegExp(`<!-- ${markedCustomRenderer.nonce} preload-base64 (\\S*?) -->`, 'g')
+//         )
+//     ).map(
+//         e => fetch(e[1]).then(r => r.arrayBuffer()).then(r => [e[0], Buffer.from(r).toString('base64').replace(/=+$/, '')])
+//     ),
+// ]).then(
+//     e => e.forEach(
+//         ([t, r]) => htmlContent = htmlContent.replaceAll(t, r)
+//     )
+// );
 
 switch (path.parse(args.output).ext.toLowerCase()) {
     case '.htm':

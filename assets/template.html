@@ -66,6 +66,13 @@
             box-shadow: 1px 1px 0px #ddd inset;
         }
 
+        {{ #mathjaxUsed }}
+            mjx-container[display="true"] {
+                display: block;
+                text-align: center;
+            }
+        {{ /mathjaxUsed }}
+
         {{{ markdownTheme }}}
         {{{ prismTheme }}}
         {{{ customStyle }}}
