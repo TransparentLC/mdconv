@@ -48,6 +48,21 @@ markedCustomRenderer.mathRendered = false;
 marked.use({
     renderer: markedCustomRenderer,
 });
+if (args['embed-images']) {
+    marked.use({
+        async: true,
+        walkTokens: async token => {
+            if (token.type === 'image') {
+                if (token.href.match(/^https?:\/\//)) {
+                    const request = await fetch(token.href);
+                    const mime = request.headers.get('Content-Type');
+                    const data = Buffer.from(await request.arrayBuffer()).toString('base64').replace(/=+$/, '');
+                    token.href = `data:${mime};base64,${data}`;
+                }
+            }
+        },
+    });
+}
 
 for (const k of ['custom-content-font', 'custom-monospace-font']) {
     if (fontCache[args[k]]) {
