@@ -118,6 +118,9 @@ dist
 .pnp.*
 
 package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
 dist
 example.html
 example.pdf

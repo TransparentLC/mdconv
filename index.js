@@ -46,23 +46,49 @@ markedCustomRenderer.nonce = Array(4).fill().map(() => Math.random().toString(16
 markedCustomRenderer.mathRenderer = args['math-renderer'];
 markedCustomRenderer.mathRendered = false;
 marked.use({
-    renderer: markedCustomRenderer,
-});
-if (args['embed-images']) {
-    marked.use({
-        async: true,
-        walkTokens: async token => {
-            if (token.type === 'image') {
-                if (token.href.match(/^https?:\/\//)) {
-                    const request = await fetch(token.href);
-                    const mime = request.headers.get('Content-Type');
-                    const data = Buffer.from(await request.arrayBuffer()).toString('base64').replace(/=+$/, '');
+    async: true,
+    walkTokens: async token => {
+        if (token.type === 'image') {
+            if (token.href.match(/^https?:\/\//) && args['embed-images']) {
+                const request = await fetch(token.href);
+                const mime = request.headers.get('Content-Type');
+                const data = Buffer.from(await request.arrayBuffer()).toString('base64').replace(/=+$/, '');
+                token.href = `data:${mime};base64,${data}`;
+            } else if (!token.href.match(/^https?:\/\//) && (path.parse(args.output).ext.toLowerCase() === '.pdf' || args['embed-images'])) {
+                try {
+                    const imagePath = path.isAbsolute(token.href) ? token.href : path.join(path.dirname(args.input), token.href);
+                    let mime = '';
+                    switch (path.parse(imagePath).ext.toLowerCase()) {
+                        case '.jpg':
+                        case '.jpeg':
+                            mime = 'image/jpeg';
+                            break;
+                        case '.png':
+                            mime = 'image/png';
+                            break;
+                        case '.gif':
+                            mime = 'image/gif';
+                            break;
+                        case '.webp':
+                            mime = 'image/webp';
+                            break;
+                        case '.avif':
+                            mime = 'image/avif';
+                            break;
+                        case '.jxl':
+                            mime = 'image/jxl';
+                            break;
+                    }
+                    const data = Buffer.from(await fs.promises.readFile(imagePath, { flag: 'r' })).toString('base64').replace(/=+$/, '');
                     token.href = `data:${mime};base64,${data}`;
+                } catch (error) {
+                    console.log(`Can't load local image: ${token.href} (${error})`);
                 }
             }
-        },
-    });
-}
+        }
+    },
+    renderer: markedCustomRenderer,
+});
 
 for (const k of ['custom-content-font', 'custom-monospace-font']) {
     if (fontCache[args[k]]) {
