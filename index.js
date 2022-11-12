@@ -1,3 +1,5 @@
+require('./lib/textdecoder-ascii-polyfill');
+
 const fontkit = require('fontkit');
 const fs = require('fs');
 const { lookpath } = require('lookpath');
