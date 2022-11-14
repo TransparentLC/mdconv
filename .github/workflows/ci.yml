@@ -17,16 +17,13 @@ jobs:
           node-version: 18
           architecture: x64
           check-latest: true
-      - name: Get npm cache directory
-        id: npm-cache
-        run: echo "dir=$(npm config get cache)" >> $GITHUB_OUTPUT
-      - name: Cache npm dependencies
+          cache: npm
+          cache-dependency-path: "**/package.json"
+      - name: Cache pkg prebuilt binary
         uses: actions/cache@v3
         with:
-          path: |
-            ${{ steps.npm-cache.outputs.dir }}
-            ~\.pkg-cache
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package.json') }}
+          path: ~/.pkg-cache
+          key: ${{ runner.os }}-pkg
       - name: Install npm dependencies
         run: npm install
       - name: Build executable for Windows
