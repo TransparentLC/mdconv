@@ -44,7 +44,6 @@ if (args['show-fonts']) {
     process.exit(0);
 }
 
-markedCustomRenderer.nonce = Array(4).fill().map(() => Math.random().toString(16).substring(2, 10)).join('');
 markedCustomRenderer.mathRenderer = args['math-renderer'];
 markedCustomRenderer.mathRendered = false;
 marked.use({
@@ -131,7 +130,7 @@ const fontToCssSrc = (/** @type {String} */ font) => /\.(tt[fc]|otf|svg|eot|woff
 
 let htmlContent = mustache.render(
     await fs.promises.readFile(
-        path.join(__dirname, 'assets', 'template.html'),
+        path.join(__dirname, 'assets', 'template.mustache'),
         { encoding: 'utf-8', flag: 'r' }
     ),
     {
@@ -153,27 +152,6 @@ let htmlContent = mustache.render(
         markdownContent: mdParsed,
     }
 );
-
-// await Promise.all([
-//     ...Array.from(
-//         htmlContent.matchAll(
-//             new RegExp(`<!-- ${markedCustomRenderer.nonce} preload (\\S*?) -->`, 'g')
-//         )
-//     ).map(
-//         e => fetch(e[1]).then(r => r.text()).then(r => [e[0], r])
-//     ),
-//     ...Array.from(
-//         htmlContent.matchAll(
-//             new RegExp(`<!-- ${markedCustomRenderer.nonce} preload-base64 (\\S*?) -->`, 'g')
-//         )
-//     ).map(
-//         e => fetch(e[1]).then(r => r.arrayBuffer()).then(r => [e[0], Buffer.from(r).toString('base64').replace(/=+$/, '')])
-//     ),
-// ]).then(
-//     e => e.forEach(
-//         ([t, r]) => htmlContent = htmlContent.replaceAll(t, r)
-//     )
-// );
 
 switch (path.parse(args.output).ext.toLowerCase()) {
     case '.htm':

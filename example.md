@@ -1,6 +1,6 @@
 # 认识 Markdown
 
-![Markdown logo](https://ae01.alicdn.com/kf/H76c33e213d744eceb779afb7031b127ff.png)
+![Markdown logo](https://ae01.alicdn.com/kf/H76c33e213d744eceb779afb7031b127ff.png "插图：Markdown Logo")
 
 Markdown 是一种用来写作的轻量级标记语言，它用简洁的语法代替排版，而不像一般我们用的字处理软件 Word 或 Pages 有大量的排版、字体设置。它使我们专心于码字，使用标记语法来代替常见的排版格式。
 
