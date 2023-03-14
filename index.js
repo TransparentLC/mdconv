@@ -70,6 +70,9 @@ marked.use({
                         case '.gif':
                             mime = 'image/gif';
                             break;
+                        case '.svg':
+                            mime = 'image/svg+xml';
+                            break;
                         case '.webp':
                             mime = 'image/webp';
                             break;
